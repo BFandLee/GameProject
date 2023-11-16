@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class Boy_Controller : MonoBehaviour
 {
-    float walkForce =4000.0f;
-    float maxWalkSpeed =120.0f;
+    float walkForce = 4000.0f;
+    float maxWalkSpeed = 120.0f;
     Rigidbody2D rb;
     Animator animator;
 
@@ -42,9 +42,3 @@ public class Boy_Controller : MonoBehaviour
 
 
 }
-      
-   
-        
-   
-
-    
