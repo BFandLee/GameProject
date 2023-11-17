@@ -24,18 +24,22 @@ public class Bullet_Controller : MonoBehaviour
             return;
         }
 
-        Vector2 p1 = transform.position;
-        Vector2 p2 = boy_0.transform.position;
+        Vector2 p1 = transform.position;    // 총알의 중심 좌표
+        Vector2 p2 = boy_0.transform.position;  // 플레이어의 중심 좌표
+        Vector2 dir = p1 - p2;
 
-        float r1X = 2.34f / 2.0f;
-        float r1Y = 5.66f / 2.0f;
+        float d = dir.magnitude;
+        float r1 = 0.5f; // 총알의 반경
+        float r2 = 1.0f; // 플레이어의 반경
 
-        float r2X = 0.19f / 2.0f;
-        float r2Y = 0.61f / 2.0f;
-
-        if (Mathf.Abs(p1.x - p2.x) < r1X + r2X && Mathf.Abs(p1.y - p2.y) < r1Y + r2Y)
+        if(d < r1+ r2)
         {
+            GameDirector.hp -= 1;
             Destroy(gameObject);
         }
+
+
+
+ 
     }
 }
