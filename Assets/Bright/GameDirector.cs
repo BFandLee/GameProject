@@ -16,6 +16,8 @@ public class GameDirector : MonoBehaviour
         HP1.GetComponent<Image>().enabled = true;
         HP2.GetComponent<Image>().enabled = true;
         HP3.GetComponent<Image>().enabled = true;
+
+        hp = 3;
     }
 
     // Update is called once per frame
