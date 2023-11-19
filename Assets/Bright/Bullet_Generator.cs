@@ -9,7 +9,7 @@ public class Bullet_Generator : MonoBehaviour
     void Start()
     {
         // 1초마다 BulletSpawn 함수 호출
-        InvokeRepeating("BulletSpawn", 1.0f, 0.25f);
+        InvokeRepeating("BulletSpawn", 1.0f, 0.5f);
     }
 
     void BulletSpawn()

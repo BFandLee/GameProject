@@ -34,6 +34,9 @@ public class Player_Controller : MonoBehaviour
 
     void Update()
     {
+        //포털 이동
+        
+
         // 처음 초기값 : (0,0,0) Vector3 사용 이유 -> object transform 컴포넌스 속 position이 Vector3값이기 때문이다.
         Vector3 movePosition = Vector3.zero;
         
@@ -102,5 +105,11 @@ public class Player_Controller : MonoBehaviour
         }
     }
 
+    void OnTriggerEnter2D()
+    {
+        SceneManager.LoadScene("Stage2");
+    }
+
 
     }
+
