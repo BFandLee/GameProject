@@ -34,8 +34,9 @@ public class Player_Controller : MonoBehaviour
 
     void Update()
     {
+        MoveControl();
         //포털 이동
-        
+
 
         // 처음 초기값 : (0,0,0) Vector3 사용 이유 -> object transform 컴포넌스 속 position이 Vector3값이기 때문이다.
         Vector3 movePosition = Vector3.zero;
@@ -110,6 +111,19 @@ public class Player_Controller : MonoBehaviour
         SceneManager.LoadScene("Stage2");
     }
 
+    // 캐릭터가 화면밖으로 이동하지 못하도록 하는 함수
+    void MoveControl()
+    {
+        Vector3 viewPos = Camera.main.WorldToViewportPoint(transform.position);
 
+        // Mathf.Clamp01(값) - 입력된 값이 0~1 사이를 벗어나지 못하게 강제로 조정
+        viewPos.x = Mathf.Clamp01(viewPos.x);
+
+        Vector3 worldPos = Camera.main.ViewportToWorldPoint(viewPos);
+        transform.position = worldPos;
     }
+   
+
+
+}
 

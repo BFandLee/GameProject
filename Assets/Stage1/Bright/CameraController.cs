@@ -32,9 +32,6 @@ public class CameraController : MonoBehaviour
     }
 
 }
-/*
-
-*/
 
 
 
