@@ -114,7 +114,13 @@ public class Player_Move : MonoBehaviour
                     Vector3 warpPos = new Vector3(anotherPortalPos.x, anotherPortalPos.y, anotherPortalPos.z);
                     transform.position = warpPos;
                     break;
-            }
+
+            case "lag":
+                SceneManager.LoadScene("Game_Clear");
+                break;
+        }
+        
+       
         
     }
 }

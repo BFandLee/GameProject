@@ -100,7 +100,7 @@ public class Player_Controller : MonoBehaviour
                 isSwordManDead = true;
                 animator.SetTrigger("DieTrigger");
                 yield return new WaitForSeconds(2); // 2초 기다리기
-                SceneManager.LoadScene("Stage1");
+                SceneManager.LoadScene("Game_Over");
             }
             yield return new WaitForEndOfFrame(); // 매 프레임의 마지막 마다 실행
         }
