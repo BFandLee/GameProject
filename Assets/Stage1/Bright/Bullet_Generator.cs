@@ -8,8 +8,9 @@ public class Bullet_Generator : MonoBehaviour
 
     void Start()
     {
+        Application.targetFrameRate = 60;
         // 1초마다 BulletSpawn 함수 호출
-        InvokeRepeating("BulletSpawn", 1.0f, 0.5f);
+        InvokeRepeating("BulletSpawn", 1.0f, 0.2f);
     }
 
     void BulletSpawn()

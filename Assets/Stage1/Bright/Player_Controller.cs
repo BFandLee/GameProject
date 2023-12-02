@@ -25,6 +25,7 @@ public class Player_Controller : MonoBehaviour
    
     void Start()
     {
+        Application.targetFrameRate = 60;
         this.rigidbody2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         StartCoroutine(CheckSwordManDeath());

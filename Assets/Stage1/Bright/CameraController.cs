@@ -17,6 +17,7 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
+        Application.targetFrameRate = 60;
         cameraHalfWidth = Camera.main.aspect * Camera.main.orthographicSize;
         cameraHalfHeight = Camera.main.orthographicSize;
     }

@@ -8,14 +8,16 @@ public class Bullet_Controller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Application.targetFrameRate = 60;
         this.boy_0 = GameObject.Find("boy_0");
     }
 
     // Update is called once per frame
     void Update()
-    {   
+    {
+       float random_value = Random.Range(-0.03f, -0.1f);
         // 화살 떨어지는 속도
-        transform.Translate(0, -0.005f, 0);
+        transform.Translate(0, random_value, 0);
 
         // 화면 밖으로 나오면 오브젝트 삭제
         if (transform.position.y < -6.31f)
