@@ -8,7 +8,7 @@ public class Player_Move : MonoBehaviour
     Animator animator;
     Rigidbody2D rigidbody2D;
     public float jumpForce = 680.0f;
-    bool isSwordManDead = false;
+    
 
     // 연속점프 관리
     bool isGround = false;
@@ -16,19 +16,25 @@ public class Player_Move : MonoBehaviour
     // 더블점프 체크
     bool doubleJumpCheck = false;
 
+
+
     public float moveSpeed = 1f;
 
     void Start()
     {
+        
         this.rigidbody2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        StartCoroutine(CheckSwordManDeath());
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        //포털 이동
+       
+        
+        //캐릭터 이동제한
+        MoveControl();
 
 
         // 처음 초기값 : (0,0,0) Vector3 사용 이유 -> object transform 컴포넌스 속 position이 Vector3값이기 때문이다.
@@ -67,39 +73,30 @@ public class Player_Move : MonoBehaviour
         }
         if (isGround)
             doubleJumpCheck = true;
+
         if (isGround && Input.GetKeyDown(KeyCode.Space))
-        {
-            this.rigidbody2D.AddForce(transform.up * this.jumpForce);
-            animator.SetTrigger("JumpTrigger");
-        }
-        else if (doubleJumpCheck && Input.GetKeyDown(KeyCode.Space))
-        {
-            this.rigidbody2D.AddForce(transform.up * this.jumpForce);
-            animator.SetTrigger("DubleJumpTrigger");
-            doubleJumpCheck = false;
-        }
-
-        transform.position += movePosition * moveSpeed * Time.deltaTime;
-
-        
-    }
-
-    IEnumerator CheckSwordManDeath()
-    {
-        while (true)
-        {
-
-            // 체력이 0이하일 때
-            if (GameDirector.hp == 0)
             {
-                isSwordManDead = true;
-                animator.SetTrigger("DieTrigger");
-                yield return new WaitForSeconds(2); // 2초 기다리기
-                SceneManager.LoadScene("Stage2");
+                this.rigidbody2D.AddForce(transform.up * this.jumpForce);
+                animator.SetTrigger("JumpTrigger");
             }
-            yield return new WaitForEndOfFrame(); // 매 프레임의 마지막 마다 실행
-        }
+            else if (doubleJumpCheck && Input.GetKeyDown(KeyCode.Space))
+            {
+                this.rigidbody2D.AddForce(transform.up * this.jumpForce);
+                animator.SetTrigger("DubleJumpTrigger");
+                // 더블점프를 한다음엔 점프가 다시 되지 않도록 하기 위해 doubleJumpCheck = false로 설정,
+                doubleJumpCheck = false;
+            }
+
+    transform.position += movePosition * moveSpeed * Time.deltaTime;
+
+
+
+
+
+
     }
+
+    
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -114,7 +111,7 @@ public class Player_Move : MonoBehaviour
                     Vector3 warpPos = new Vector3(anotherPortalPos.x, anotherPortalPos.y, anotherPortalPos.z);
                     transform.position = warpPos;
                     break;
-
+            
             case "lag":
                 SceneManager.LoadScene("Game_Clear");
                 break;
@@ -123,4 +120,26 @@ public class Player_Move : MonoBehaviour
        
         
     }
+
+    // 캐릭터가 화면밖으로 이동하지 못하도록 하는 함수
+    void MoveControl()
+    {
+        Vector3 viewPos = Camera.main.WorldToViewportPoint(transform.position);
+
+        // Mathf.Clamp01(값) - 입력된 값이 0~1 사이를 벗어나지 못하게 강제로 조정
+        viewPos.x = Mathf.Clamp01(viewPos.x);
+
+        Vector3 worldPos = Camera.main.ViewportToWorldPoint(viewPos);
+        transform.position = worldPos;
+    }
+
+    private void OnCollisionEnter(Collision c)
+    {
+      // 부딪힌 물체의 태그가 "Ground"라면
+      if(c.gameObject.CompareTag("Ground"))
+        {
+            isGround = true;
+        }
+    }
+
 }

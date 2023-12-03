@@ -10,6 +10,7 @@ public class CloudMovement : MonoBehaviour
 
     private void Start()
     {
+        
         pos = transform.position;
     }
     private void Update()

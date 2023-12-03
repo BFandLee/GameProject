@@ -11,7 +11,7 @@ public class LeftMovement : MonoBehaviour
 
     void Start()
     {
-        Application.targetFrameRate = 60;
+        
         initialPosition = transform.position;
     }
 
